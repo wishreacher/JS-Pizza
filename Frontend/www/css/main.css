@@ -1,0 +1,180 @@
+body{
+    margin: 0;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+}
+
+header{
+    background-color: #333331;
+    display: flex;
+    padding: 0 40px 0 40px;
+}
+
+p{
+    margin: 0;
+}
+
+.logo{
+    width: 10%;
+}
+
+.flex{
+    display: flex;
+}
+
+.top-bar{
+    display: flex;
+    color: #8d8d8b;
+    width: 90%;
+    border-bottom: solid 1px #ffffff;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-text{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.phone{
+    font-size: 20px;
+    margin-bottom: 0;
+}
+
+.free-delivery{
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.working-hours{
+    margin-bottom: 0;
+}
+
+.orange-button{
+    background-color: #eea128;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    height: 35px;
+    padding: 0 12px 0 12px;;
+}
+
+.bars{
+    width: 90%;
+}
+
+.section-title{
+    color: #fff;
+    font-size: 16px;
+    margin: 10px 0 10px 0;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fffff5;
+}
+
+.title-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.amount{
+    font-size: 16px;
+    color: #fff;
+    background-color: #eea128;
+    border-radius: 40%;
+    margin-left: 10px;
+    padding: 0 10px 0 10px;
+    line-height: 25px;
+}
+
+.category-name{
+    border: none;
+    background-color: #fffff5;
+    color: #eea128;
+    padding: 7px 10px 7px 10px;
+    border-radius: 5px;
+}
+
+.selected-category{
+    background-color: #eea128;
+    color: #fff;
+}
+
+.menu{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    justify-content: center;
+}
+
+.pizza{
+    width: 260px;
+    border-radius: 5px;
+    border: 1px solid #8d8d8b;
+    background-color: white;
+    color: black;
+    padding: 10px 5px 10px 5px;
+}
+
+.pizza-image{
+    width: 250px;
+    height: 250px;
+}
+
+.pizza-name{
+    font-size: 28px;
+    color: #ee700c;
+    font-weight: bold;
+    margin: 0;
+}
+
+.pizza-style{
+    margin: 0;
+    color: #b4b4b4;
+    font-size: 12px;
+}
+
+.sizes-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    display: flex;
+}
+
+.size{
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-text{
+    margin-left: 5px;
+}
+
+.price-tag{
+    font-size: 26px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.price-container{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
