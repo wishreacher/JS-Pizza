@@ -8,7 +8,7 @@ body{
 header{
     background-color: rgba(51, 51, 49, 0.9);
     display: flex;
-    padding: 0 40px 0 40px;
+    padding: 0 40px 0 120px;
     position: sticky;
     top: 0;
     z-index: 100;
@@ -24,11 +24,10 @@ footer{
     display: flex;
     justify-content: center;
     padding: 40px 0 40px 0;
-
 }
 
 .catalogue{
-    width: 75%;
+    width: 78%;
 }
 
 .logo{
@@ -43,7 +42,6 @@ footer{
 .top-bar{
     display: flex;
     color: #8d8d8b;
-    width: 90%;
     border-bottom: solid 1px #ffffff;
     align-items: center;
     justify-content: space-between;
@@ -81,7 +79,7 @@ footer{
 }
 
 .bars{
-    width: 90%;
+    width: 100%;
 }
 
 .section-title{
@@ -203,7 +201,7 @@ footer{
 }
 
 .cart{
-    width: 25%;
+    width: 22%;
     position: fixed;
     right: 0;
     top: 0;
@@ -325,4 +323,56 @@ footer{
     border-radius: 5px;
     padding: 10px 0 10px 0;
     font-size: 18px;
+}
+
+.discount-badge {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    z-index: 101; /* Ensure the badge is above the header */
+}
+
+.discount-badge img {
+    width: 90px; /* Adjust as needed */
+    height: 200px;
+    transform: rotate(180deg);
+}
+
+.discount-badge p {
+    position: absolute;
+    top: 50%; /* Center the text vertically */
+    left: 50%; /* Center the text horizontally */
+    transform: translate(-50%, -180%); /* Ensure the center of the text is at the center of the image */
+    color: #fff; /* Change the text color as needed */
+    font-size: 16px; /* Adjust as needed */
+    font-weight: bold; /* Make the text bold */
+}
+
+.discount-badge-footer {
+    position: fixed;
+    bottom: -10px;
+    left: 10px;
+    z-index: 101; /* Ensure the badge is above the footer */
+}
+
+.discount-badge-footer img {
+    width: 90px; /* Adjust as needed */
+    height: 250px;
+}
+
+.footer-badge-text {
+    width: 80%;
+    position: absolute;
+    top: 50%; /* Center the text vertically */
+    left: 50%; /* Center the text horizontally */
+    transform: translate(-50%, 30%); /* Ensure the center of the text is at the center of the image */
+    color: #fff; /* Change the text color as needed */
+    font-size: 16px; /* Adjust as needed */
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.badge-text-caption{
+    border-bottom: 1px solid #e7971c;
+    margin-bottom: 10px;
 }
