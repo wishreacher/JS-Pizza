@@ -31,10 +31,6 @@ footer{
     width: 75%;
 }
 
-.cart{
-    width: 25%;
-}
-
 .logo{
     width: 10%;
 }
@@ -206,6 +202,16 @@ footer{
     text-align: center;
 }
 
+.cart{
+    width: 25%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    overflow: auto;
+    height: 100%;
+    box-shadow: -10px 0px 10px 0px rgba(0,0,0,0.2);
+}
+
 .cart-header{
     display: flex;
     justify-content: space-between;
@@ -216,6 +222,11 @@ footer{
 .cart-description{
     font-size: 12px;
     color: #b4b4b4;
+}
+
+.cart-content{
+    height: 70%;
+    overflow: auto;
 }
 
 .order-params{
@@ -289,4 +300,29 @@ footer{
 .cart-item-image{
     width: 100px;
     height: 100px;
+}
+
+.total-price-container{
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.cart-footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 10px 20px 10px;
+}
+
+.order-button{
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: #eea128;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 0 10px 0;
+    font-size: 18px;
 }
