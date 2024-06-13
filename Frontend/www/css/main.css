@@ -130,13 +130,13 @@ footer{
     margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
+    gap: 20px;
     justify-content: center;
     margin-bottom: 20px;
 }
 
 .pizza{
-    width: 260px;
+    width: 240px;
     border-radius: 5px;
     border: 1px solid #8d8d8b;
     background-color: white;
@@ -293,11 +293,14 @@ footer{
 
 .cart-item-image-container{
     width: 40%;
+    transform: translateX(60%);
+    overflow: hidden;
 }
 
 .cart-item-image{
     width: 100px;
     height: 100px;
+
 }
 
 .total-price-container{
@@ -375,4 +378,71 @@ footer{
 .badge-text-caption{
     border-bottom: 1px solid #e7971c;
     margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1024px){
+    .catalogue{
+        width: 70%;
+    }
+
+    .cart{
+        width: 30%;
+    }
+
+    .menu{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    h2{
+        font-size: 20px;
+    }
+
+    footer{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 824px){
+    .menu{
+        grid-template-columns: repeat(1, 1fr);
+        gap: 40px;
+    }
+
+    .working-hours{
+        display: none;
+    }
+
+    .free-delivery{
+        display: none;
+    }
+
+    .catalogue{
+        width: 55%;
+    }
+
+    .cart{
+        width: 45%;
+    }
+
+    .phone{
+        font-size: 16px;
+    }
+
+    header{
+        padding-right: 20px;
+    }
+
+    h2{
+        font-size: 18px;
+    }
+
+    .amount{
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .order-button{
+        margin: 20px 0 20px 0;
+    }
 }
