@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const cartContent = document.querySelector('.cart-content');
             const cartAmount = document.querySelector('.cart .amount');
             const totalPriceElement = document.querySelector('.cart .total-price-container .total-price:last-child');
-            const amount = document.querySelector('.amount');
             const totalPrice = document.querySelector('.total-price');
+            const clearCartButton = document.querySelector('.cart-description');
 
             const saveCartToLocalStorage = () => {
                 const cartItems = Array.from(cartContent.children).map(cartItem => {
@@ -19,10 +19,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 const cartInfo = {
                     items: cartItems,
                     totalAmount: cartAmount.textContent, // Save the cart amount to local storage
-                    totalPrice: totalPriceElement.textContent
+                    totalPrice: totalPrice.textContent
                 };
                 localStorage.setItem('cart', JSON.stringify(cartInfo));
             };
+
+            clearCartButton.addEventListener('click', function() {
+                // Clear the cart content
+                cartContent.innerHTML = '';
+
+                // Update the total price and amount
+                totalPriceElement.textContent = '0 грн';
+                totalPrice.textContent = '0 грн';
+                updateCartAmount();
+
+                // Update the total price in the cartInfo object and save it to local storage
+                const cartInfo = {
+                    items: [],
+                    totalAmount: '0',
+                    totalPrice: '0 грн'
+                };
+                localStorage.setItem('cart', JSON.stringify(cartInfo));
+            });
 
             const updateCartAmount = () => {
                 cartAmount.textContent = cartContent.children.length;
