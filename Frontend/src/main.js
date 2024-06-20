@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const totalPriceElement = document.querySelector('.cart .total-price-container .total-price:last-child');
             const totalPrice = document.querySelector('.total-price');
             const clearCartButton = document.querySelector('.cart-description');
+            const filterButtons = document.querySelectorAll('.category-name');
 
             const saveCartToLocalStorage = () => {
                 const cartItems = Array.from(cartContent.children).map(cartItem => {
@@ -18,22 +19,87 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 const cartInfo = {
                     items: cartItems,
-                    totalAmount: cartAmount.textContent, // Save the cart amount to local storage
+                    totalAmount: cartAmount.textContent,
                     totalPrice: totalPrice.textContent
                 };
                 localStorage.setItem('cart', JSON.stringify(cartInfo));
             };
 
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = button.textContent;
+
+                    filterButtons.forEach(button => {
+                        button.classList.remove('selected-category');
+                    });
+
+                    button.classList.add('selected-category');
+
+                    let filteredPizzas;
+                    if (filter === 'Усі') {
+                        filteredPizzas = pizza_info;
+                    } else {
+                        filteredPizzas = pizza_info.filter(pizza => pizza.type === filter);
+                    }
+
+                    menu.innerHTML = '';
+                    filteredPizzas.forEach(pizza => {
+                        const pizzaElement = document.createElement('div');
+                        pizzaElement.classList.add('pizza');
+
+                        pizzaElement.innerHTML = `
+                        <img src="${pizza.icon}" alt="pizza" class="pizza-image">
+                        <p class="pizza-name">${pizza.title}</p>
+                        <p class="pizza-style">${pizza.type}</p>
+                        <p class="pizza-description">${Object.values(pizza.content).flat().join(', ')}</p>
+                        <div class="sizes-container">
+                            ${pizza.small_size ? `
+                            <div class="size">
+                                <div class="radius flex">
+                                    <img src="assets/images/size-icon.svg" alt="">
+                                    <p class="icon-text">${pizza.small_size.size}</p>
+                                </div>
+                                <div class="weight flex">
+                                    <img src="assets/images/weight.svg" alt="">
+                                    <p class="icon-text">${pizza.small_size.weight}</p>
+                                </div>
+                                <div class="price-container">
+                                    <p class="price-tag">${pizza.small_size.price}</p>
+                                    <p class="currency">грн.</p>
+                                </div>
+                                <button class="orange-button" data-size="small">Купити</button>
+                            </div>` : ''}
+                            ${pizza.big_size ? `
+                            <div class="size">
+                                <div class="radius flex">
+                                    <img src="assets/images/size-icon.svg" alt="">
+                                    <p class="icon-text">${pizza.big_size.size}</p>
+                                </div>
+                                <div class="weight flex">
+                                    <img src="assets/images/weight.svg" alt="">
+                                    <p class="icon-text">${pizza.big_size.weight}</p>
+                                </div>
+                                <div class="price-container">
+                                    <p class="price-tag">${pizza.big_size.price}</p>
+                                    <p class="currency">грн.</p>
+                                </div>
+                                <button class="orange-button" data-size="big">Купити</button>
+                            </div>` : ''}
+                        </div>
+                    `;
+
+                        menu.appendChild(pizzaElement);
+                    });
+                });
+            });
+
             clearCartButton.addEventListener('click', function() {
-                // Clear the cart content
                 cartContent.innerHTML = '';
 
-                // Update the total price and amount
                 totalPriceElement.textContent = '0 грн';
                 totalPrice.textContent = '0 грн';
                 updateCartAmount();
 
-                // Update the total price in the cartInfo object and save it to local storage
                 const cartInfo = {
                     items: [],
                     totalAmount: '0',

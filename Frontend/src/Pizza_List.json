@@ -3,7 +3,7 @@
     "id": 1,
     "icon": "assets/images/pizza_7.jpg",
     "title": "Імпреза",
-    "type": "М’ясна піца",
+    "type": "М'ясні",
     "content": {
       "meat": [
         "балик",
@@ -41,7 +41,7 @@
     "id": 2,
     "icon": "assets/images/pizza_2.jpg",
     "title": "BBQ",
-    "type": "М’ясна піца",
+    "type": "М'ясні",
     "content": {
       "meat": [
         "мисливські ковбаски",
@@ -75,7 +75,7 @@
     "id": 3,
     "icon": "assets/images/pizza_1.jpg",
     "title": "Міксовий поло",
-    "type": "М’ясна піца",
+    "type": "М'ясні",
     "content": {
       "meat": [
         "вітчина",
@@ -108,7 +108,7 @@
     "id": 4,
     "icon": "assets/images/pizza_5.jpg",
     "title": "Сициліано",
-    "type": "М’ясна піца",
+    "type": "М'ясні",
     "content": {
       "meat": [
         "вітчина",
@@ -140,7 +140,7 @@
     "id": 17,
     "icon": "assets/images/pizza_3.jpg",
     "title": "Маргарита",
-    "type": "Вега піца",
+    "type": "Вега",
     "content": {
       "cheese": [
         "сир моцарелла",
@@ -200,7 +200,7 @@
     "id": 90,
     "icon": "assets/images/pizza_8.jpg",
     "title": "Дольче Маре",
-    "type": "Морська піца",
+    "type": "Морська",
     "content": {
       "ocean": [
         "криветки тигрові",
@@ -226,7 +226,7 @@
     "id": 6,
     "icon": "assets/images/pizza_4.jpg",
     "title": "Россо Густо",
-    "type": "Морська піца",
+    "type": "Морська",
     "content": {
       "ocean": [
         "ікра червона",
