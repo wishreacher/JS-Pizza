@@ -2,11 +2,27 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('../src/Pizza_List.json')
         .then(response => response.json())
         .then(pizza_info => {
-            // Select the .menu element
             const menu = document.querySelector('.menu');
             const cartContent = document.querySelector('.cart-content');
             const cartAmount = document.querySelector('.cart .amount');
             const totalPriceElement = document.querySelector('.cart .total-price-container .total-price:last-child');
+            const amount = document.querySelector('.amount');
+            const totalPrice = document.querySelector('.total-price');
+
+            const saveCartToLocalStorage = () => {
+                const cartItems = Array.from(cartContent.children).map(cartItem => {
+                    const orderName = cartItem.querySelector('.order-name').textContent;
+                    const orderPrice = cartItem.querySelector('.order-price').textContent;
+                    const orderAmount = cartItem.querySelector('.order-amount').textContent;
+                    return { orderName, orderPrice, orderAmount };
+                });
+                const cartInfo = {
+                    items: cartItems,
+                    totalAmount: cartAmount.textContent, // Save the cart amount to local storage
+                    totalPrice: totalPriceElement.textContent
+                };
+                localStorage.setItem('cart', JSON.stringify(cartInfo));
+            };
 
             const updateCartAmount = () => {
                 cartAmount.textContent = cartContent.children.length;
@@ -22,13 +38,83 @@ document.addEventListener('DOMContentLoaded', function() {
                 totalPriceElement.textContent = `${totalPrice} грн`;
             };
 
-            // Loop over the pizza_info array
+            const savedCartInfo = JSON.parse(localStorage.getItem('cart')) || { items: [], totalAmount: '0', totalPrice: '0 грн' };
+            const savedCartItems = savedCartInfo.items;
+            savedCartItems.forEach(savedCartItem => {
+                const pizza = pizza_info.find(pizza => `${pizza.title} (${pizza.small_size.size})` === savedCartItem.orderName || `${pizza.title} (${pizza.big_size.size})` === savedCartItem.orderName);
+                const size = savedCartItem.orderName.includes(pizza.small_size.size) ? 'small' : 'big';
+                const pizzaSize = pizza[size + '_size'];
+
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.classList.add('flex');
+                cartItem.innerHTML = `
+                    <div class="cart-item-description">
+                        <p class="order-name">${pizza.title} (${pizzaSize.size})</p>
+                        <div class="order-params flex">
+                            <div class="radius flex">
+                                <img src="assets/images/size-icon.svg" alt="">
+                                <p class="icon-text">${pizzaSize.size}</p>
+                            </div>
+                            <div class="weight flex">
+                                <img src="assets/images/weight.svg" alt="">
+                                <p class="icon-text">${pizzaSize.weight}</p>
+                            </div>
+                        </div>
+                        <div class="order-controls flex">
+                            <p class="order-price">${pizzaSize.price}грн</p>
+                            <div class="order-amount-container">
+                                <button class="round-button minus-button">-</button>
+                                <p class="order-amount">${savedCartItem.orderAmount}</p>
+                                <button class="round-button plus-button">+</button>
+                            </div>
+                            <button class="round-button cross-button">x</button>
+                        </div>
+                    </div>
+                    <div class="cart-item-image-container">
+                        <img src="${pizza.icon}" alt="pizza" class="cart-item-image">
+                    </div>
+                `;
+
+                cartAmount.textContent = savedCartInfo.totalAmount;
+                totalPrice.textContent = savedCartInfo.totalPrice;
+
+                cartContent.appendChild(cartItem);
+
+                const plusButton = cartItem.querySelector('.plus-button');
+                const minusButton = cartItem.querySelector('.minus-button');
+                const crossButton = cartItem.querySelector('.cross-button');
+                const orderAmount = cartItem.querySelector('.order-amount');
+
+                plusButton.addEventListener('click', function() {
+                    orderAmount.textContent = Number(orderAmount.textContent) + 1;
+                    updateTotalPrice();
+                    saveCartToLocalStorage();
+                });
+
+                minusButton.addEventListener('click', function() {
+                    const amount = Number(orderAmount.textContent);
+                    if (amount > 1) {
+                        orderAmount.textContent = amount - 1;
+                    } else {
+                        cartContent.removeChild(cartItem);
+                    }
+                    updateTotalPrice();
+                    saveCartToLocalStorage();
+                });
+
+                crossButton.addEventListener('click', function() {
+                    cartContent.removeChild(cartItem);
+                    updateCartAmount();
+                    updateTotalPrice();
+                    saveCartToLocalStorage();
+                });
+            });
+
             pizza_info.forEach(pizza => {
-                // Create a new .pizza element
                 const pizzaElement = document.createElement('div');
                 pizzaElement.classList.add('pizza');
 
-                // Fill the .pizza element with the appropriate data
                 pizzaElement.innerHTML = `
                     <img src="${pizza.icon}" alt="pizza" class="pizza-image">
                     <p class="pizza-name">${pizza.title}</p>
@@ -73,7 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 orangeButtons.forEach(button => {
                     button.addEventListener('click', function() {
-                        // Determine which size of pizza to add to the cart
                         const size = button.getAttribute('data-size');
                         const pizzaSize = pizza[size + '_size'];
 
@@ -86,7 +171,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             const orderAmount = existingCartItem.querySelector('.order-amount');
                             orderAmount.textContent = Number(orderAmount.textContent) + 1;
                         } else{
-                            // Create a new cart item
                             const cartItem = document.createElement('div');
                             cartItem.classList.add('cart-item');
                             cartItem.classList.add('flex');
@@ -118,10 +202,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         `;
 
-                            // Append the new cart item to the cart content
                             cartContent.appendChild(cartItem);
 
-                            // Add event listeners to the plus and minus buttons
                             const plusButton = cartItem.querySelector('.plus-button');
                             const minusButton = cartItem.querySelector('.minus-button');
                             const crossButton = cartItem.querySelector('.cross-button');
@@ -130,6 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             plusButton.addEventListener('click', function() {
                                 orderAmount.textContent = Number(orderAmount.textContent) + 1;
                                 updateTotalPrice();
+                                saveCartToLocalStorage();
                             });
 
                             minusButton.addEventListener('click', function() {
@@ -140,21 +223,23 @@ document.addEventListener('DOMContentLoaded', function() {
                                     cartContent.removeChild(cartItem);
                                 }
                                 updateTotalPrice();
+                                saveCartToLocalStorage();
                             });
 
                             crossButton.addEventListener('click', function() {
                                 cartContent.removeChild(cartItem);
                                 updateCartAmount();
                                 updateTotalPrice();
+                                saveCartToLocalStorage();
                             });
                         }
 
                         updateCartAmount();
                         updateTotalPrice();
+                        saveCartToLocalStorage();
                     });
                 });
 
-                // Append the .pizza element to the .menu element
                 menu.appendChild(pizzaElement);
             });
         });
