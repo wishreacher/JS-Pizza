@@ -6,9 +6,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const menu = document.querySelector('.menu');
             const cartContent = document.querySelector('.cart-content');
             const cartAmount = document.querySelector('.cart .amount');
+            const totalPriceElement = document.querySelector('.cart .total-price-container .total-price:last-child');
 
             const updateCartAmount = () => {
                 cartAmount.textContent = cartContent.children.length;
+            };
+
+            const updateTotalPrice = () => {
+                let totalPrice = 0;
+                Array.from(cartContent.children).forEach(cartItem => {
+                    const price = Number(cartItem.querySelector('.order-price').textContent.replace('грн', ''));
+                    const quantity = Number(cartItem.querySelector('.order-amount').textContent);
+                    totalPrice += price * quantity;
+                });
+                totalPriceElement.textContent = `${totalPrice} грн`;
             };
 
             // Loop over the pizza_info array
@@ -109,9 +120,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
                             // Append the new cart item to the cart content
                             cartContent.appendChild(cartItem);
+
+                            // Add event listeners to the plus and minus buttons
+                            const plusButton = cartItem.querySelector('.plus-button');
+                            const minusButton = cartItem.querySelector('.minus-button');
+                            const crossButton = cartItem.querySelector('.cross-button');
+                            const orderAmount = cartItem.querySelector('.order-amount');
+
+                            plusButton.addEventListener('click', function() {
+                                orderAmount.textContent = Number(orderAmount.textContent) + 1;
+                                updateTotalPrice();
+                            });
+
+                            minusButton.addEventListener('click', function() {
+                                const amount = Number(orderAmount.textContent);
+                                if (amount > 1) {
+                                    orderAmount.textContent = amount - 1;
+                                } else {
+                                    cartContent.removeChild(cartItem);
+                                }
+                                updateTotalPrice();
+                            });
+
+                            crossButton.addEventListener('click', function() {
+                                cartContent.removeChild(cartItem);
+                                updateCartAmount();
+                                updateTotalPrice();
+                            });
                         }
 
                         updateCartAmount();
+                        updateTotalPrice();
                     });
                 });
 
